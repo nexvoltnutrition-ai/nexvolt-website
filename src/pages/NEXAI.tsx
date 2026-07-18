@@ -54,11 +54,19 @@ export function NEXAI() {
         content: m.content
       }));
 
-      const res = await fetch('/api/nexai/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatHistory, userId: user?.id })
-      });
+      const API_URL =
+      import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+      const res = await fetch(`${API_URL}/api/nexai/chat`, {
+       method: "POST",
+      headers: {
+    "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+    messages: chatHistory,
+    userId: user?.id,
+     }),
+    });
 
       if (!res.ok) throw new Error('Failed to fetch response');
       const data = await res.json();
