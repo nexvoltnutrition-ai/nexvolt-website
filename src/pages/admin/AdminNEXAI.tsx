@@ -322,8 +322,8 @@ export function AdminNEXAI() {
                   onChange={(e) => setSettings({...settings, gemini_model: e.target.value})}
                 >
                   <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (Recommended)</option>
-                  <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro</option>
-                  <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash</option>
+                  <option value="gemini-2.5-pro-latest">Gemini 2.5 Pro</option>
+                  <option value="gemini-2.5-flash-latest">Gemini 2.5 Flash</option>
                 </select>
               </div>
 
