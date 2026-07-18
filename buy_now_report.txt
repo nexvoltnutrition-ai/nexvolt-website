@@ -1,0 +1,16 @@
+BUY NOW BUTTON REPORT
+
+1. Current Buy Now Implementation:
+   - Found in: /src/pages/ProductDetail.tsx
+   - Issue: The button was an empty React button with no onClick handler.
+   - Fix: Implemented handleBuyNow, which copies the product configuration, updates its thumbnail/price to match the selected SKU variants, adds the specific quantity to the Cart store via addToCart(), and redirects strictly to '/checkout'.
+
+2. Current Checkout Route:
+   - Found in: /src/App.tsx under <Route path="checkout" element={<Checkout />} />
+   - Route path is '/checkout'.
+   - Component is imported properly. Checkout handles empty carts and redirect logic gracefully.
+
+3. Fixes applied:
+   - Imported useNavigate from 'react-router-dom' in ProductDetail.tsx.
+   - Added handleBuyNow wrapper to safely add to cart and immediately shift router to the /checkout page.
+   - Wired onClick={handleBuyNow} to the Buy Now button.

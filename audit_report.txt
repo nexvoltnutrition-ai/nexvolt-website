@@ -1,0 +1,21 @@
+WORKING FEATURES
+* Authentication (Login/Logout using context)
+* Profile (Fetching profile data)
+* Profile Update (Saving name, phone, etc. using existing columns)
+
+BROKEN FEATURES
+* Addresses: Fails because it queries `addresses` table instead of `adresses`, and tries to read/write columns (`street`, `city`, `state`, `postal_code`, `country`, `is_default`) which do not exist in `adresses`.
+* Wishlist: Fails because `wishlists` table does not exist.
+* Orders (Admin & Customer): Fails because `items` column doesn't exist on `orders`, and relationships like `order_items` don't have FKs to `orders`.
+* Rewards: Fails because the `rewards` table is a catalog and does not contain `customer_id` or user points history.
+* Referrals: Fails because it expects `referrer_id` column but `Account.tsx` creates the structure differently or maybe missing features.
+
+ROOT CAUSE
+* Discrepancies between expected UI schemas (which were originally mocked) and actual database schemas inside Supabase. Missing tables (`wishlists`, `addresses`) and missing columns (`items` on orders).
+
+FIX REQUIRED
+* Addresses: Change `addresses` -> `adresses`, serialize address fields into a JSON string within the `address` column.
+* Wishlist: Fallback to localStorage. Query actual products from `products` table using the IDs.
+* Orders: Manually query `order_items` for fetched `orders` since the relationship is broken.
+* Rewards: Instead of user's points history, render the `rewards` catalog to show which rewards are available based on the user's current points.
+* Referrals: Ensure the query matches the schema (`referrer_id` exists as bigint, make sure data types match).

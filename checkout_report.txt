@@ -1,0 +1,14 @@
+SCHEMA AUDIT REPORT
+
+1. orders table missing fields:
+   - There is no column for storing the selected shipping address (e.g., `address`, `shipping_address`, `shipping_address_id`).
+   - The total amount column is named `subtotal`. There are no columns for shipping fees, taxes, or a grand total.
+   - Status columns are named `order_status` and `payment_status`.
+
+2. order_items table missing fields:
+   - No issues. Columns exist for `order_id`, `product_id`, `quantity`, and `price`.
+
+3. RLS Policies:
+   - Untested but assuming valid RLS for authenticated users exists. If users receive 42501 (RLS) upon placing an order, policies mimicking the addresses pattern will need to be written (using `customer_id` associated to `auth.jwt()`).
+
+Implementation has been provided omitting the shipping address storage to orders table, as no supporting column was found in the schema. Defaulting to updating existing Address instead.
