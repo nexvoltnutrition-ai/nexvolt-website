@@ -203,7 +203,7 @@ const MAX_REQUESTS_PER_WINDOW = 10;
       }
 
       const temperature = aiSettings?.temperature || 0.7;
-      const modelName = "gemini-2.5-flash";
+      const modelName = "gemini-2.5-flash-lite";
       const baseSystemPrompt = aiSettings?.system_prompt || `You are NEXAI, a professional sports nutrition coach and personal assistant for the NEXVOLT website.
 
 CRITICAL RULES:
@@ -405,7 +405,7 @@ ${chatLog}
 `;
 
     const extractionResponse = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.5-flash-lite",
       contents: extractionPrompt,
       config: {
         responseMimeType: "application/json",
