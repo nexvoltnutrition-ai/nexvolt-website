@@ -133,18 +133,6 @@ async function refreshKnowledge() {
 }
 
 async function startServer() {
-  const app = express();
-  app.use(cors({
-  origin: [
-    "https://nexvolt-website-olive.vercel.app",
-    "http://localhost:5173",
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
-
-app.options("*", cors());
   const PORT = 3000;
 
   app.use(express.json());
@@ -375,7 +363,6 @@ USER PROFILE (Do NOT ask for this information if it is already provided here):
       res.json({ response: aiText });
     } catch (error: any) {
       console.error("Error in /api/nexai/chat:", error);
-      require('fs').appendFileSync('error.log', "Error: " + (error.stack || error) + "\n");
       res.status(500).json({ error: "Failed to process chat request.", details: error.message, stack: error.stack });
     }
   });
