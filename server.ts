@@ -1,12 +1,26 @@
-
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
+
+const app = express();   // 👈 Ye line pehle honi chahiye
+
+app.use(cors({
+  origin: [
+    "https://nexvolt-website-olive.vercel.app",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+app.options("*", cors());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const supabaseUrl = process.env.VITE_SUPABASE_URL || "";
@@ -120,6 +134,17 @@ async function refreshKnowledge() {
 
 async function startServer() {
   const app = express();
+  app.use(cors({
+  origin: [
+    "https://nexvolt-website-olive.vercel.app",
+    "http://localhost:5173",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+app.options("*", cors());
   const PORT = 3000;
 
   app.use(express.json());
