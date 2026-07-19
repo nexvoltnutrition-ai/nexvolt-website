@@ -19,9 +19,9 @@ export const Logo: React.FC<LogoProps> = ({
       className={`flex items-center gap-2 cursor-pointer select-none ${className}`}
       onClick={onClick}
     >
-      {/* Left Vertical Bar */}
+      {/* Vertical Line */}
       <div
-        className={`w-[3.5px] self-stretch rounded-sm ${
+        className={`w-[3px] h-[44px] md:h-[54px] lg:h-[60px] rounded-sm ${
           dark ? 'bg-white' : 'bg-[#111111]'
         }`}
       />
@@ -29,7 +29,7 @@ export const Logo: React.FC<LogoProps> = ({
       {/* Logo Text */}
       <div className="flex flex-col items-center justify-center">
         <span
-          className={`font-bold text-[22px] md:text-[28px] lg:text-[32px] leading-none tracking-[0.08em] uppercase ${
+          className={`font-black text-[28px] md:text-[34px] lg:text-[38px] leading-none uppercase tracking-[0.08em] ${
             dark ? 'text-white' : 'text-[#111111]'
           }`}
           style={{ fontFamily: 'Inter, sans-serif' }}
@@ -38,7 +38,7 @@ export const Logo: React.FC<LogoProps> = ({
         </span>
 
         <span
-          className={`mt-[3px] text-[6px] md:text-[7.5px] lg:text-[8.5px] font-medium uppercase tracking-[0.22em] whitespace-nowrap ${
+          className={`mt-[4px] text-[8px] md:text-[10px] lg:text-[11px] font-medium uppercase tracking-[0.30em] whitespace-nowrap ${
             dark ? 'text-gray-300' : 'text-[#666666]'
           }`}
           style={{ fontFamily: 'Inter, sans-serif' }}
