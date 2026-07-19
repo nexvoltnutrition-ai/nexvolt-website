@@ -42,13 +42,19 @@ export function NEXAIAssistant() {
   const [searchHistory, setSearchHistory] = useState('');
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages, isTyping, isOpen]);
+  if (!isOpen || !chatContainerRef.current) return;
+
+  requestAnimationFrame(() => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  });
+}, [messages, isTyping]);
 
   useEffect(() => {
     if (user && isOpen && isHistoryOpen) {
@@ -253,7 +259,7 @@ const res = await fetch(`${API_URL}/api/nexai/chat`, {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[600px] max-h-[calc(100vh-100px)] bg-white rounded-3xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 font-sans"
+           className="fixed inset-0 bg-white z-50 flex flex-col font-sans"
           >
             {/* Header */}
             <div className="bg-[#111111] p-4 flex items-center justify-between shrink-0">
@@ -322,7 +328,8 @@ const res = await fetch(`${API_URL}/api/nexai/chat`, {
             ) : (
             <>
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 custom-scrollbar relative">
+            <div  ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 custom-scrollbar relative"
+>
               {messages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-4 py-8">
                   <div className="w-12 h-12 bg-[#111111] text-white rounded-2xl flex items-center justify-center mb-2">
@@ -511,7 +518,7 @@ const res = await fetch(`${API_URL}/api/nexai/chat`, {
             </div>
 
             {/* Input Area */}
-            <div className="p-3 border-t border-gray-200 bg-white shrink-0">
+           <div className="border-t border-gray-200 bg-white p-4 shrink-0">
               <form onSubmit={handleInputSubmit} className="relative flex items-end gap-2">
                 <button
                   type="button"
@@ -525,7 +532,7 @@ const res = await fetch(`${API_URL}/api/nexai/chat`, {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask NEXAI..."
-                  className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-[14px] focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111] transition-all resize-none min-h-[44px] max-h-[100px] custom-scrollbar"
+                  className="flex-1 bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-[14px] focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111] transition-all resize-none min-h-[48px] max-h-[140px] custom-scrollbar"
                   rows={1}
                   style={{ height: 'auto' }}
                   onInput={(e) => {
