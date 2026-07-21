@@ -147,10 +147,7 @@ const MAX_REQUESTS_PER_WINDOW = 10;
   
   // Setup auto-refresh every 5 minutes
   setInterval(refreshKnowledge, CACHE_TTL);
-  await refreshKnowledge();
-
-// Setup auto-refresh every 5 minutes
-setInterval(refreshKnowledge, CACHE_TTL);
+ 
 
 /* 👇 YAHAN SE PASTE KARNA HAI */
 
@@ -207,8 +204,7 @@ async function generateWithRetry(request: any) {
 /* 👆 YAHAN TAK PASTE KARNA HAI */
 
 
-// Admin endpoint to force refresh
-app.post("/api/nexai/refresh", async (req, res) => {
+
 
   // Admin endpoint to force refresh
   app.post("/api/nexai/refresh", async (req, res) => {
