@@ -147,6 +147,68 @@ const MAX_REQUESTS_PER_WINDOW = 10;
   
   // Setup auto-refresh every 5 minutes
   setInterval(refreshKnowledge, CACHE_TTL);
+  await refreshKnowledge();
+
+// Setup auto-refresh every 5 minutes
+setInterval(refreshKnowledge, CACHE_TTL);
+
+/* 👇 YAHAN SE PASTE KARNA HAI */
+
+const sleep = (ms: number) =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
+async function generateWithRetry(request: any) {
+
+  const MAX_RETRIES = 3;
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+
+    try {
+
+      console.log(`[NEXAI] Gemini Attempt ${attempt}`);
+
+      return await ai.models.generateContent(request);
+
+    } catch (err: any) {
+
+      const status = err?.status;
+
+      console.error(
+        `[NEXAI] Attempt ${attempt} failed`,
+        status,
+        err?.message
+      );
+
+      const retryable =
+        status === 503 ||
+        status === 429 ||
+        status === 504;
+
+      if (!retryable || attempt === MAX_RETRIES) {
+
+        throw err;
+
+      }
+
+      const delay = attempt * 2000;
+
+      console.log(
+        `[NEXAI] Retrying in ${delay / 1000}s...`
+      );
+
+      await sleep(delay);
+
+    }
+
+  }
+
+}
+
+/* 👆 YAHAN TAK PASTE KARNA HAI */
+
+
+// Admin endpoint to force refresh
+app.post("/api/nexai/refresh", async (req, res) => {
 
   // Admin endpoint to force refresh
   app.post("/api/nexai/refresh", async (req, res) => {
@@ -292,7 +354,7 @@ USER PROFILE (Do NOT ask for this information if it is already provided here):
 
       const finalSystemInstruction = baseSystemPrompt + "\n\n" + ragRules + "\n\n" + safetyContext + "\n\n" + profileContext + "\n\n" + knowledgeCache.contextString;
 
-      const response = await ai.models.generateContent({
+      const response = await generateWithRetry({
         model: modelName,
         contents: formattedMessages,
         config: {
@@ -361,10 +423,29 @@ USER PROFILE (Do NOT ask for this information if it is already provided here):
       }
 
       res.json({ response: aiText });
-    } catch (error: any) {
-      console.error("Error in /api/nexai/chat:", error);
-      res.status(500).json({ error: "Failed to process chat request.", details: error.message, stack: error.stack });
-    }
+   } catch (error: any) {
+
+  console.error("Error in /api/nexai/chat:", error);
+
+  if (
+    error?.status === 503 ||
+    error?.status === 429 ||
+    error?.status === 504
+  ) {
+
+    return res.status(503).json({
+      error:
+        "NEXAI is currently experiencing high demand. Please try again in a few moments."
+    });
+
+  }
+
+  return res.status(500).json({
+    error:
+      "Something went wrong while processing your request."
+  });
+
+}
   });
 
   async function logConversation(userId: string, messages: any[], aiResponseText: string) {
