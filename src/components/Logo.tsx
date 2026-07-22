@@ -41,7 +41,7 @@ export const Logo: React.FC<LogoProps> = ({
   className={`mt-[2px] text-[10px] md:text-[11px] lg:text-[11px] font-medium uppercase tracking-[0.16em] whitespace-nowrap ${
     dark ? 'text-gray-300' : 'text-[#666666]'
   }`}
-  style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.50em' }}
+  style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.48em' }}
 >
   PEAK PERFORMANCE
 </span>
