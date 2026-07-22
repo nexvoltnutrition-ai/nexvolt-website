@@ -17,7 +17,7 @@ export const Logo: React.FC<LogoProps> = ({
       src="/nexvolt-logo.png"
       alt="NEXVOLT"
       onClick={onClick}
-      className={`h-20 md:h-24 lg:h-28 w-auto cursor-pointer select-none ${className}`}
+      className={`h-28 md:h-32 lg:h-36 w-auto cursor-pointer select-none ${className}`}
       draggable={false}
     />
   );
