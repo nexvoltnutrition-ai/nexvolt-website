@@ -37,14 +37,14 @@ export const Logo: React.FC<LogoProps> = ({
           NEXVOLT
         </span>
 
-        <span
-          className={`mt-[4px] text-[8px] md:text-[10px] lg:text-[11px] font-medium uppercase tracking-[0.30em] whitespace-nowrap ${
-            dark ? 'text-gray-300' : 'text-[#666666]'
-          }`}
-          style={{ fontFamily: 'Inter, sans-serif' }}
-        >
-          PEAK PERFORMANCE
-        </span>
+       <span
+  className={`mt-[2px] text-[10px] md:text-[11px] lg:text-[11px] font-medium uppercase tracking-[0.16em] whitespace-nowrap ${
+    dark ? 'text-gray-300' : 'text-[#666666]'
+  }`}
+  style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.22em' }}
+>
+  PEAK PERFORMANCE
+</span>
       </div>
     </div>
   );
