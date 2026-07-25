@@ -107,13 +107,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCustomerData(customer as CustomerRecord);
       } else {
         console.log("No existing customer found, creating new for:", targetUser.email || targetUser.phone);
-        const customerPayload = {
-          name: targetUser.user_metadata?.full_name || 'New Customer',
-          email: targetUser.email,
-          phone: targetUser.phone,
-          tier: 'Silver',
-          points: 0
-        };
+       console.log("Customer Payload:", customerPayload);
+
+const { data: newCustomer, error: insertError } = await supabase
+  .from("customers")
+  .insert([customerPayload])
+  .select()
+  .maybeSingle();
+
+console.log("Insert Result:", newCustomer);
+console.log("Insert Error:", insertError);
         const { data: newCustomer, error: insertError } = await supabase
           .from('customers')
           .insert([customerPayload])
