@@ -109,8 +109,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log("No existing customer found, creating new for:", targetUser.email || targetUser.phone);
         const customerPayload = {
   name: targetUser.user_metadata?.full_name || "New Customer",
-  email: targetUser.email,
-  phone: targetUser.phone,
+  email: targetUser.email || null,
+  phone: targetUser.phone || null,
   tier: "Silver",
   points: 0,
 };
