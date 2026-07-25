@@ -117,11 +117,7 @@ const { data: newCustomer, error: insertError } = await supabase
 
 console.log("Insert Result:", newCustomer);
 console.log("Insert Error:", insertError);
-        const { data: newCustomer, error: insertError } = await supabase
-          .from('customers')
-          .insert([customerPayload])
-          .select()
-          .maybeSingle();
+        
 
         if (insertError) {
           console.error('Error creating customer record:', insertError);
