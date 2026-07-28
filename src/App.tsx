@@ -26,7 +26,7 @@ import { Home } from "./pages/Home";
 import { Products } from "./pages/Products";
 import { ProductDetail } from "./pages/ProductDetail";
 import { BestSellersPage } from "./pages/BestSellersPage";
-import { Compare } from "./pages/Compare";
+import  About  from "./pages/About";
 import { Blogs } from "./pages/Blogs";
 import { SingleBlog } from "./pages/SingleBlog";
 import { TrackOrder } from "./pages/TrackOrder";
@@ -71,7 +71,7 @@ export default function App() {
           <Route path="sports/:id" element={<SportDetail />} />
           <Route path="category/:id" element={<CategoryDetail />} />
           <Route path="best-sellers" element={<BestSellersPage />} />
-          <Route path="compare" element={<Compare />} />
+          <Route path="about" element={<About />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="blogs/:slug" element={<SingleBlog />} />
           <Route path="track-order" element={<TrackOrder />} />
