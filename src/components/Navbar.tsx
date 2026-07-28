@@ -10,7 +10,7 @@ const MENU_ITEMS = [
   { name: "Products", path: "/products" },
   { name: "Best Sellers", path: "/best-sellers" },
   { name: "NEX AI", path: "/nexai" },
-  { name: "Compare", path: "/compare" },
+  { name: "About Us", path: "/about" },
   { name: "Blogs", path: "/blogs" },
   { name: "Track Order", path: "/track-order" },
 ];
@@ -72,7 +72,7 @@ export function Navbar() {
                   className="text-[#111111] hover:text-[#555555] focus:outline-none flex items-center justify-center"
                 >
                   {isMobileMenuOpen ? (
-                     <X className="h-6 w-6" strokeWidth={1.5} />
+                     <X className="h-[22px] w-[22px]" strokeWidth={1.75} />
                   ) : (
                      <Menu className="h-7 w-7" strokeWidth={1.75} />
                   )}
@@ -104,10 +104,10 @@ export function Navbar() {
                 ))}
                 <div className="flex space-x-6 px-2 py-6 mt-2">
                   <Link to="/account" onClick={() => setIsMobileMenuOpen(false)} className="text-[#111111] hover:text-[#555555] flex items-center text-[13px] font-medium uppercase tracking-[0.05em]">
-                     <User className="h-5 w-5 mr-3" strokeWidth={1.5} /> Profile
+                     <User className="h-[22px] w-[22px] mr-3" strokeWidth={1.75} /> Profile
                   </Link>
                   <Link to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="text-[#111111] hover:text-[#555555] flex items-center text-[13px] font-medium uppercase tracking-[0.05em]">
-                     <Heart className="h-5 w-5 mr-3" strokeWidth={1.5} /> Wishlist
+                     <Heart className="h-[22px] w-[22px] mr-3" strokeWidth={1.75} /> Wishlist
                   </Link>
                 </div>
               </div>
